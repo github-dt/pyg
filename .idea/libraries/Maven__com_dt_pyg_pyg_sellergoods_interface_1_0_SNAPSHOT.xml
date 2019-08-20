@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Maven: com.dt.pyg:pyg-sellergoods-interface:1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://D:/maven/apache-maven-3.3.9/repository/com/dt/pyg/pyg-sellergoods-interface/1.0-SNAPSHOT/pyg-sellergoods-interface-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/pyg-sellergoods/pyg-sellergoods-interface/pyg-sellergoods-interface-1.0-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://D:/maven/apache-maven-3.3.9/repository/com/dt/pyg/pyg-sellergoods-interface/1.0-SNAPSHOT/pyg-sellergoods-interface-1.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/pyg-sellergoods/pyg-sellergoods-interface/pyg-sellergoods-interface-1.0-SNAPSHOT-sources.jar!/" />
+      <root url="jar://D:/maven/apache-maven-3.3.9/repository/com/dt/pyg/pyg-sellergoods-interface/1.0-SNAPSHOT/pyg-sellergoods-interface-1.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

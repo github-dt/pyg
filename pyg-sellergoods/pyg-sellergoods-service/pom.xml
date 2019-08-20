@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <parent> 
+    <artifactId>pyg-sellergoods</artifactId>  
+    <groupId>com.dt.pyg</groupId>  
+    <version>1.0-SNAPSHOT</version> 
+  </parent>  
+  <modelVersion>4.0.0</modelVersion>  
+  <artifactId>pyg-sellergoods-service</artifactId>
+  <packaging>war</packaging>
+
+  <dependencies>
+    <!-- 日志 -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+    <!-- spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+    <!-- pinyougou-mapper -->
+    <dependency>
+      <groupId>com.dt.pyg</groupId>
+      <artifactId>pyg-mapper</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <!-- pinyougou-sellergoods-interface -->
+    <dependency>
+      <groupId>com.dt.pyg</groupId>
+      <artifactId>pyg-sellergoods-interface</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+
+    <!-- dubbo -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>dubbo</artifactId>
+    </dependency>
+    <!-- zookeeper分布式协调服务 -->
+    <dependency>
+      <groupId>org.apache.zookeeper</groupId>
+      <artifactId>zookeeper</artifactId>
+    </dependency>
+    <!-- zkclient(zookeeper客户端) -->
+    <dependency>
+      <groupId>com.github.sgroschupf</groupId>
+      <artifactId>zkclient</artifactId>
+    </dependency>
+
+  </dependencies>
+
+</project>

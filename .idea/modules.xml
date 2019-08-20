@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pyg.iml" filepath="$PROJECT_DIR$/pyg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg-common/pyg-common.iml" filepath="$PROJECT_DIR$/pyg-common/pyg-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg-manager-web/pyg-manager-web.iml" filepath="$PROJECT_DIR$/pyg-manager-web/pyg-manager-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg-mapper/pyg-mapper.iml" filepath="$PROJECT_DIR$/pyg-mapper/pyg-mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg-pojo/pyg-pojo.iml" filepath="$PROJECT_DIR$/pyg-pojo/pyg-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg-sellergoods/pyg-sellergoods.iml" filepath="$PROJECT_DIR$/pyg-sellergoods/pyg-sellergoods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg-sellergoods/pyg-sellergoods-interface/pyg-sellergoods-interface.iml" filepath="$PROJECT_DIR$/pyg-sellergoods/pyg-sellergoods-interface/pyg-sellergoods-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg-sellergoods/pyg-sellergoods-service/pyg-sellergoods-service.iml" filepath="$PROJECT_DIR$/pyg-sellergoods/pyg-sellergoods-service/pyg-sellergoods-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyg-shop-web/pyg-shop-web.iml" filepath="$PROJECT_DIR$/pyg-shop-web/pyg-shop-web.iml" />
+    </modules>
+  </component>
+</project>
