@@ -1,19 +1,16 @@
 package com.dt.pyg.mapper;
 
-import com.dt.pyg.pojo.Brand;
 
-import java.util.List;
+import com.dt.pyg.pojo.Brand;
+import tk.mybatis.mapper.common.Mapper;
 
 /**
  * 品牌数据访问接口
- *
- * @author lee.siu.wah
+ * @author LEE.SIU.WAH
+ * @email lixiaohua7@163.com
+ * @date 2017年12月1日 下午5:08:25
  * @version 1.0
- * <p>File Created at 2017-12-28<p>
  */
-public interface BrandMapper {
-
-    /** 查询全部品牌 */
-//    @Select("select * from tb_brand order by id asc")
-    List<Brand> findAll();
+public interface BrandMapper extends Mapper<Brand> {
+	
 }
