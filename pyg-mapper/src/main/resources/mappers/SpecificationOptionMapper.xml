@@ -3,5 +3,18 @@
 	"-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dt.pyg.mapper.SpecificationOptionMapper" >
-  
+	<!-- 添加规格选项 -->
+	<insert id="save">
+		INSERT INTO tb_specification_option
+		(option_name, spec_id, orders) VALUES
+		<foreach collection="specificationOptions"
+				 item="so" separator=",">
+			(#{so.optionName},#{id},#{so.orders})
+		</foreach>
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM tb_specification_option WHERE spec_id = #{specificationOption.specId}
+	</delete>
+
 </mapper>
