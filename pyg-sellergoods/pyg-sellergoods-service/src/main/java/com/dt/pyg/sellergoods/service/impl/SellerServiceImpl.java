@@ -5,8 +5,13 @@ import com.dt.pyg.common.pojo.PageResult;
 import com.dt.pyg.mapper.SellerMapper;
 import com.dt.pyg.pojo.Seller;
 import com.dt.pyg.sellergoods.service.SellerService;
+import com.github.pagehelper.ISelect;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 
 /**
@@ -23,7 +28,10 @@ public class SellerServiceImpl implements SellerService {
 	/** 添加商家 */
 	public void saveSeller(Seller seller){
 		try {
-			
+			seller.setStatus("0");
+			seller.setCreateTime(new Date());
+			sellerMapper.insertSelective(seller);
+
 		}catch (Exception ex){
 			throw new RuntimeException(ex);
 		}
@@ -38,8 +46,16 @@ public class SellerServiceImpl implements SellerService {
 	 */
 	public PageResult findByPage(Seller seller, Integer page, Integer rows){
 		try {
-			
-			return null;
+			PageInfo<Seller> pageInfo = PageHelper.startPage(page, rows).doSelectPageInfo(new ISelect() {
+				@Override
+				public void doSelect() {
+					sellerMapper.findAll(seller);
+				}
+			});
+			PageResult pageResult = new PageResult();
+			pageResult.setTotal(pageInfo.getTotal());
+			pageResult.setRows(pageInfo.getList());
+			return pageResult;
 		}catch (Exception ex){
 			throw new RuntimeException(ex);
 		}
@@ -52,7 +68,11 @@ public class SellerServiceImpl implements SellerService {
 	 */
 	public void updateStatus(String sellerId, String status){
 		try {
-			
+			Seller seller = new Seller();
+			seller.setSellerId(sellerId);
+			seller.setStatus(status);
+			sellerMapper.updateByPrimaryKeySelective(seller);
+
 		}catch (Exception ex){
 			throw new RuntimeException(ex);
 		}
@@ -61,7 +81,7 @@ public class SellerServiceImpl implements SellerService {
 	/** 根据sellerId查询商家对象 */
 	public Seller findOne(String username){
 		try {
-			return null;
+			return sellerMapper.selectByPrimaryKey(username);
 		}catch (Exception ex){
 			throw new RuntimeException(ex);
 		}

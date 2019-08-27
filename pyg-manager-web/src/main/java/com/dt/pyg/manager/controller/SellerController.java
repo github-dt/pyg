@@ -40,7 +40,7 @@ public class SellerController {
 	}
 
 	/** 审核商家(修改商家的状态) */
-	@GetMapping("/upddateStatus")
+	@GetMapping("/updateStatus")
 	public boolean upddateStatus(String sellerId, String status){
 		try{
 			sellerService.updateStatus(sellerId, status);
