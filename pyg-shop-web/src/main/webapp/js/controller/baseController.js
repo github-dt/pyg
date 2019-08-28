@@ -66,4 +66,16 @@ app.controller("baseController", function($scope){
         alert("ddd");
     };
     // obj.add();
+
+
+    /** 从json数组中根据key查询指定的json对象 */
+    $scope.searchJsonByKey = function(jsonArr, key, keyValue){
+        /** 迭代json数组 */
+        for(var i = 0; i < jsonArr.length; i++){
+            if(jsonArr[i][key] == keyValue){
+                return jsonArr[i];
+            }
+        }
+    };
+
 });

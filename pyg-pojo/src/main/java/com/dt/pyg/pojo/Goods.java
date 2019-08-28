@@ -9,8 +9,7 @@ import java.util.List;
  */
 @Table(name="tb_goods")
 public class Goods implements Serializable{
-
-	private static final long serialVersionUID = -3888154864571208139L;
+    private static final long serialVersionUID = -3888154864571208139L;
 	/** 主键 */
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")

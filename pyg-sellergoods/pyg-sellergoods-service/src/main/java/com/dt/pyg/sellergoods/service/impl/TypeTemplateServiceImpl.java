@@ -1,9 +1,12 @@
 package com.dt.pyg.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.dt.pyg.common.pojo.PageResult;
+import com.dt.pyg.mapper.SpecificationOptionMapper;
 import com.dt.pyg.mapper.TypeTemplateMapper;
 import com.dt.pyg.pojo.Specification;
+import com.dt.pyg.pojo.SpecificationOption;
 import com.dt.pyg.pojo.TypeTemplate;
 import com.dt.pyg.sellergoods.service.TypeTemplateService;
 import com.github.pagehelper.ISelect;
@@ -14,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -26,6 +31,10 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 	
 	@Autowired
 	private TypeTemplateMapper typeTemplateMapper;
+
+	@Autowired
+	private SpecificationOptionMapper specificationOptionMapper;
+
 	/**
 	 * 分页查询类型模版
 	 * @param typeTemplate 模版实体
@@ -88,5 +97,48 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 			throw new RuntimeException(ex);
 		}
 	}
-	
+
+	@Override
+	public TypeTemplate findTypeTemplateById(Long id) {
+		try{
+			return typeTemplateMapper.selectByPrimaryKey(id);
+		}catch(Exception ex){
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/**
+	 * 根据模版id查询所有的规格与规格选项
+	 * @param id 模版id
+	 * @return List
+	 */
+
+	@Override
+	public List<Map> findSpecByTemplateId(Long id) {
+		try{
+			/** 根据主键id查询模版 */
+			TypeTemplate typeTemplate = findTypeTemplateById(id);
+			/**
+			 * [{"id":33,"text":"电视屏幕尺寸"}]
+			 * 获取模版中所有的规格，转化成  List<Map>
+			 */
+			List<Map> specLists =
+					JSON.parseArray(typeTemplate.getSpecIds(), Map.class);
+			/** 迭代模版中所有的规格 */
+			for (Map map : specLists){
+				/** 创建查询条件对象 */
+				SpecificationOption so = new SpecificationOption();
+				so.setSpecId(Long.valueOf(map.get("id").toString()));
+				/** 通过规格id，查询规格选项数据 */
+				List<SpecificationOption> specOptions =
+						specificationOptionMapper.select(so);
+				map.put("options", specOptions);
+			}
+			return specLists;
+		}catch(Exception ex){
+			throw new RuntimeException(ex);
+		}
+
+	}
+
 }

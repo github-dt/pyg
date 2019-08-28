@@ -61,4 +61,35 @@ app.controller('itemCatController', function($scope, $controller, baseService){
         }
     };
 
+    /** 根据上级ID显示下级列表 */
+    $scope.findItemCatByParentId = function(parentId){
+        baseService.sendGet("/itemCat/findItemCatByParentId",
+            "parentId=" + parentId).then(
+            function(response){
+                $scope.dataList = response.data;
+            }
+        );
+    };
+
+    /** 默认为1级 */
+    $scope.grade = 1;
+    /** 查询下级 */
+    $scope.selectList = function(entity, grade){
+        $scope.grade = grade;
+        if(grade == 1){ //如果为1级
+            $scope.itemCat_1 = null;
+            $scope.itemCat_2 = null;
+        }
+        if(grade == 2){ //如果为2级
+            $scope.itemCat_1 = entity;
+            $scope.itemCat_2 = null;
+        }
+        if(grade == 3){ //如果为3级
+            $scope.itemCat_2 = entity;
+        }
+        /** 查询此级下级列表 */
+        $scope.findItemCatByParentId(entity.id);
+    };
+
+
 });

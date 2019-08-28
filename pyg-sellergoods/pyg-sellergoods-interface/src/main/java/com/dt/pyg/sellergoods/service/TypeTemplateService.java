@@ -4,6 +4,9 @@ package com.dt.pyg.sellergoods.service;
 import com.dt.pyg.common.pojo.PageResult;
 import com.dt.pyg.pojo.TypeTemplate;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 服务层接口
  */
@@ -27,4 +30,8 @@ public interface TypeTemplateService {
 
     /** 删除规格与规格选项 */
     void deleteTypeTemplate(Long[] ids);
+
+    TypeTemplate findTypeTemplateById(Long id);
+
+    List<Map> findSpecByTemplateId(Long id);
 }

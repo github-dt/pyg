@@ -74,6 +74,17 @@
       <artifactId>spring-security-config</artifactId>
     </dependency>
 
+    <!-- commons-fileupload -->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+    </dependency>
+    <!-- fastdfs-client -->
+    <dependency>
+      <groupId>org.csource</groupId>
+      <artifactId>fastdfs-client</artifactId>
+    </dependency>
+
   </dependencies>
 
   <!-- 构建部分 -->

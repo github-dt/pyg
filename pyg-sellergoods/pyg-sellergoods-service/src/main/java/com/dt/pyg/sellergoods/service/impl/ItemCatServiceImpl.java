@@ -23,8 +23,10 @@ public class ItemCatServiceImpl implements ItemCatService {
 	/** 根据父级id查询商品分类 */
 	public List<ItemCat> findItemCatByParentId(Long parentId){
 		try{
-			
-			return null;
+			/** 创建ItemCat封装查询条件 */
+			ItemCat itemCat = new ItemCat();
+			itemCat.setParentId(parentId);
+			return itemCatMapper.select(itemCat);
 		}catch (Exception ex){
 			throw new RuntimeException(ex);
 		}
