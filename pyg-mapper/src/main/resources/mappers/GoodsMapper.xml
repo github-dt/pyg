@@ -11,7 +11,7 @@
 			<if test="goods != null">
 				<!-- 商家id -->
 				<if test="goods.sellerId != null and goods.sellerId !=''">
-					seller_id = #{goods.sellerId}
+					and seller_id = #{goods.sellerId}
 				</if>
 				<!-- 商品名称 -->
 				<if test="goods.goodsName != null and goods.goodsName !=''">

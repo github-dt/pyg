@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:solr="http://www.springframework.org/schema/data/solr"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/data/solr
+       http://www.springframework.org/schema/data/solr/spring-solr.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 配置当前应用的名称 -->
+    <dubbo:application name="pyg-search-service"/>
+
+    <!-- 配置zookeeper作为注册中心，提供服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="192.168.110.128:2181"/>
+
+    <!-- 用dubbo协议在20882端口暴露服务  -->
+    <dubbo:protocol name="dubbo" port="20882"/>
+
+    <!-- 配置采用包扫描来暴露服务 -->
+    <dubbo:annotation package="com.dt.pyg.search.service.impl"/>
+</beans>
