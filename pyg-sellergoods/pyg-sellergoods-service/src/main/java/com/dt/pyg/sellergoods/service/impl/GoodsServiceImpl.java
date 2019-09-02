@@ -13,7 +13,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -162,6 +164,24 @@ public class GoodsServiceImpl implements GoodsService {
         }catch(Exception ex){
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public List<Item> findItemsByGoodsIdAndStatus(Long[] ids, String status) {
+        try{
+            /** 创建示范对象 */
+            Example example = new Example(Item.class);
+            /** 创建查询条件对象 */
+            Example.Criteria criteria = example.createCriteria();
+            /** 添加in查询条件 */
+            criteria.andIn("goodsId", Arrays.asList(ids));
+            /** 添加等于号查询条件 */
+            criteria.andEqualTo("status", status);
+            return itemMapper.selectByExample(example);
+        }catch (Exception ex){
+            throw new RuntimeException(ex);
+        }
+
     }
 
     /** 保存sku具体商品信息 */

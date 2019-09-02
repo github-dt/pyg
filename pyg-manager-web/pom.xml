@@ -90,6 +90,14 @@
       <groupId>org.csource</groupId>
       <artifactId>fastdfs-client</artifactId>
     </dependency>
+
+    <!-- pinyougou-search-interface -->
+    <dependency>
+      <groupId>com.dt.pyg</groupId>
+      <artifactId>pyg-search-interface</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies>
 
   <!-- 构建部分 -->

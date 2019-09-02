@@ -2,7 +2,12 @@ package com.dt.pyg.sellergoods.service;
 
 
 import com.dt.pyg.common.pojo.PageResult;
-import com.dt.pyg.pojo.Goods; /**
+import com.dt.pyg.pojo.Goods;
+import com.dt.pyg.pojo.Item;
+
+import java.util.List;
+
+/**
  * 服务层接口
  */
 public interface GoodsService {
@@ -18,4 +23,6 @@ public interface GoodsService {
     void updateStatus(Long[] ids, String status);
 
     void deleteGoods(Long[] ids);
+
+    List<Item> findItemsByGoodsIdAndStatus(Long[] ids, String status);
 }

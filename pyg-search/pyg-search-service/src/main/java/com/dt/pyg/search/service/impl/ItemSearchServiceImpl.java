@@ -4,7 +4,9 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.dt.pyg.search.service.ItemSearchService;
 import com.dt.pyg.solr.SolrItem;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.*;
@@ -37,12 +39,31 @@ public class ItemSearchServiceImpl implements ItemSearchService {
             // 定义Map集合封装，最终返回的数据
             Map<String, Object> data = new HashMap<>();
 
-
             // 获取关键字
             String keywords = (String) params.get("keywords");
+
+            /** 获取当前页码 */
+            Integer page = (Integer)params.get("page");
+            if(page == null){
+                /** 默认第一页 */
+                page = 1;
+            }
+            /** 获取每页显示的记录数 */
+            Integer rows = (Integer)params.get("rows");
+            if(rows == null){
+                /** 默认20条记录 */
+                rows = 20;
+            }
+
+
             // 判断关键字
             /** 判断检索关键字是否为空 */
             if (StringUtils.isNoneBlank(keywords)) { // 高亮查询
+
+                /** 关键字空格处理 */
+                keywords = keywords.replace(" ", "");
+
+
                 /** 创建高亮查询对象 */
                 HighlightQuery highlightQuery = new SimpleHighlightQuery();
                 /** 创建高亮选项对象 */
@@ -88,7 +109,43 @@ public class ItemSearchServiceImpl implements ItemSearchService {
                     }
                 }
 
+                /** 按价格过滤 */
+                if(!"".equals(params.get("price"))){
+                    /** 得到价格范围数组 */
+                    String[] price =
+                            params.get("price").toString().split("-");
+                    /** 如果价格区间起点不等于0 */
+                    if(!price[0].equals("0")){
+                        Criteria criteria1 = new
+                                Criteria("price").greaterThanEqual(price[0]);
+                        highlightQuery.addFilterQuery(new
+                                SimpleFilterQuery(criteria1));
+                    }
+                    /** 如果价格区间终点不等于星号 */
+                    if(!price[1].equals("*")){
+                        Criteria criteria1 = new
+                                Criteria("price").lessThanEqual(price[1]);
+                        highlightQuery.addFilterQuery( new
+                                SimpleFilterQuery(criteria1));
+                    }
+                }
 
+                /** 添加排序 */
+                String sortValue = (String) params.get("sort"); // ASC  DESC
+                String sortField = (String) params.get("sortField"); // 排序字段
+                if(StringUtils.isNoneBlank(sortValue)){
+                    Sort sort = new Sort("ASC".equalsIgnoreCase(sortValue) ?
+                            Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+                    /** 增加排序 */
+                    highlightQuery.addSort(sort);
+                }
+
+
+
+                /** 设置起始记录查询数 */
+                highlightQuery.setOffset((page - 1) * rows);
+                /** 设置每页显示记录数 */
+                highlightQuery.setRows(rows);
 
 
                 /** 分页查询，得到高亮分页查询对象 */
@@ -129,6 +186,11 @@ public class ItemSearchServiceImpl implements ItemSearchService {
                     }
                 }
 
+                /** 设置总页数 */
+                data.put("totalPages", highlightPage.getTotalPages());
+                /** 设置总记录数 */
+                data.put("total", highlightPage.getTotalElements());
+
                 // 设置商品分类
                 data.put("categoryList", categoryList);
                 // 获取检索的结果
@@ -137,17 +199,54 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
                 // 创建查询对象
                 Query query = new SimpleQuery("*:*");
+                /** 设置起始记录查询数 */
+                query.setOffset((page - 1) * rows);
+                /** 设置每页显示记录数 */
+                query.setRows(rows);
 
                 /** 分页查询，得到分页对象 */
                 ScoredPage scoredPage = solrTemplate.queryForPage(query, SolrItem.class);
                 // 获取检索的结果
                 data.put("rows", scoredPage.getContent());
-                data.put("categoryList", null);
+                /** 设置总页数 */
+                data.put("totalPages", scoredPage.getTotalPages());
+                /** 设置总记录数 */
+                data.put("total", scoredPage.getTotalElements());
+
+//                data.put("categoryList", null);
             }
             return data;
 
         } catch (Exception ex) {
             throw new RuntimeException(ex);
+        }
+    }
+
+    /** 添加或修改索引库 */
+    @Override
+    public void saveOrUpdate(List<SolrItem> solrItems) {
+        /** 添加或修改 */
+        UpdateResponse updateResponse = solrTemplate.saveBeans(solrItems);
+        /** 判断状态码 */
+        if (updateResponse.getStatus() == 0){
+            solrTemplate.commit();
+        }else{
+            solrTemplate.rollback();
+        }
+
+    }
+
+    @Override
+    public void delete(List<Long> goodsIds) {
+        System.out.println("删除商品SPU的ID：" + goodsIds);
+        Query query = new SimpleQuery();
+        Criteria criteria = new Criteria("goodsId").in(goodsIds);
+        query.addCriteria(criteria);
+        UpdateResponse updateResponse = solrTemplate.delete(query);
+        if (updateResponse.getStatus() == 0){
+            solrTemplate.commit();
+        }else{
+            solrTemplate.rollback();
         }
     }
 
