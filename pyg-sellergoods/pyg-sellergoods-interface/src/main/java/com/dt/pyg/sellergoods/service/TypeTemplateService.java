@@ -34,4 +34,6 @@ public interface TypeTemplateService {
     TypeTemplate findTypeTemplateById(Long id);
 
     List<Map> findSpecByTemplateId(Long id);
+
+    void saveToRedis();
 }

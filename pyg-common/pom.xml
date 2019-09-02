@@ -21,6 +21,14 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
         </dependency>
+
+        <!-- pinyougou-common -->
+        <dependency>
+            <groupId>com.dt.pyg</groupId>
+            <artifactId>pyg-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
 

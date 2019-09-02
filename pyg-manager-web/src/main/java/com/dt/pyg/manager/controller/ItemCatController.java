@@ -26,4 +26,17 @@ public class ItemCatController {
 			defaultValue = "0")Long parentId){
 		return itemCatService.findItemCatByParentId(parentId);
 	}
+
+	/** 更新商品分类的缓存数据 */
+	@GetMapping("/updateRedis")
+	public boolean updateRedis() {
+		try {
+			itemCatService.saveToRedis();
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
+
 }

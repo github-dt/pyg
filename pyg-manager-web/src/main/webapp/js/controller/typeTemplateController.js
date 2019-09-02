@@ -92,5 +92,16 @@ app.controller('typeTemplateController', function($scope, $controller, baseServi
         $scope.entity.customAttributeItems.splice(index,1);
     };
 
+    /** 更新品牌与规格选项的缓存数据 */
+    $scope.updateRedis = function(){
+        baseService.sendGet("/typeTemplate/updateRedis")
+            .then(function(response){
+                if (response.data){
+                    alert("更新缓存成功！");
+                }else{
+                    alert("更新缓存失败！");
+                }
+            });
+    };
 
 });

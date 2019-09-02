@@ -5,6 +5,7 @@ import com.dt.pyg.mapper.ItemCatMapper;
 import com.dt.pyg.pojo.ItemCat;
 import com.dt.pyg.sellergoods.service.ItemCatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,6 +21,10 @@ public class ItemCatServiceImpl implements ItemCatService {
 	@Autowired
 	private ItemCatMapper itemCatMapper;
 
+	@Autowired
+	private RedisTemplate redisTemplate;
+
+
 	/** 根据父级id查询商品分类 */
 	public List<ItemCat> findItemCatByParentId(Long parentId){
 		try{
@@ -30,5 +35,18 @@ public class ItemCatServiceImpl implements ItemCatService {
 		}catch (Exception ex){
 			throw new RuntimeException(ex);
 		}
+	}
+
+	/** 添加商品分类数据到Redis中 */
+	@Override
+	public void saveToRedis() {
+		/** 查询全部商品分类 */
+		List<ItemCat> itemCats = itemCatMapper.selectAll();
+		/** 循环存入缓存 */
+		for (ItemCat itemCat : itemCats){
+			redisTemplate.boundHashOps("itemCats")
+					.put(itemCat.getName(), itemCat.getTypeId());
+		}
+
 	}
 }

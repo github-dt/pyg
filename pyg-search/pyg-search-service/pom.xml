@@ -38,6 +38,14 @@
       <groupId>com.dt.pyg</groupId>  
       <artifactId>pyg-search-interface</artifactId>  
       <version>${project.version}</version> 
-    </dependency> 
+    </dependency>
+
+    <!-- pinyougou-common -->
+    <dependency>
+      <groupId>com.dt.pyg</groupId>
+      <artifactId>pyg-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies> 
 </project>

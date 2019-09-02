@@ -91,5 +91,17 @@ app.controller('itemCatController', function($scope, $controller, baseService){
         $scope.findItemCatByParentId(entity.id);
     };
 
+    /** 更新商品分类的缓存数据 */
+    $scope.updateRedis = function(){
+        baseService.sendGet("/itemCat/updateRedis")
+            .then(function(response){
+                if (response.data){
+                    alert("更新缓存成功！");
+                }else{
+                    alert("更新缓存失败！");
+                }
+            });
+    };
+
 
 });

@@ -13,6 +13,7 @@ import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
@@ -34,6 +35,10 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 
 	@Autowired
 	private SpecificationOptionMapper specificationOptionMapper;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
+
 
 	/**
 	 * 分页查询类型模版
@@ -139,6 +144,26 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 			throw new RuntimeException(ex);
 		}
 
+	}
+
+	@Override
+	public void saveToRedis() {
+		/** 查询全部类型模版数据 */
+		List<TypeTemplate> typeTemplateList = typeTemplateMapper.selectAll();
+		/** 循环集合 */
+		for (TypeTemplate typeTemplate : typeTemplateList){
+			/** 存储品牌列表 */
+			List<Map> brandList = JSON.
+					parseArray(typeTemplate.getBrandIds(), Map.class);
+			redisTemplate.boundHashOps("brandList")
+					.put(typeTemplate.getId(),brandList);
+
+			/** 根据模版id查询规格与规格选项 */
+			List<Map> specList = findSpecByTemplateId(typeTemplate.getId());
+			/** 存储规格与规格选项列表 */
+			redisTemplate.boundHashOps("specList")
+					.put(typeTemplate.getId(), specList);
+		}
 	}
 
 }

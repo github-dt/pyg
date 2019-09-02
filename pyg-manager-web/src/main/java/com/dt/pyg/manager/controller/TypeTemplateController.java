@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/typeTemplate")
 public class TypeTemplateController {
 
-	@Reference
+	@Reference(timeout = 10000)
 	private TypeTemplateService typeTemplateService;
 
 	/** 分页查询规格 */
@@ -72,5 +72,18 @@ public class TypeTemplateController {
 		}
 		return false;
 	}
-	
+
+	/** 更新品牌与规格选项的缓存数据 */
+	@GetMapping("/updateRedis")
+	public boolean updateRedis() {
+		try {
+			typeTemplateService.saveToRedis();
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
+
+
 }
