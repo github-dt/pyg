@@ -6,6 +6,7 @@ import com.dt.pyg.pojo.Goods;
 import com.dt.pyg.pojo.Item;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 服务层接口
@@ -25,4 +26,6 @@ public interface GoodsService {
     void deleteGoods(Long[] ids);
 
     List<Item> findItemsByGoodsIdAndStatus(Long[] ids, String status);
+
+    Map<String,Object> getItem(Long goodsId);
 }

@@ -19,6 +19,7 @@
       <module>pyg-solr-util</module>
     <module>pyg-search</module>
       <module>pyg-search-web</module>
+      <module>pyg-item-web</module>
   </modules>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
