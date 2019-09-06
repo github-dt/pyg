@@ -91,12 +91,17 @@
       <artifactId>fastdfs-client</artifactId>
     </dependency>
 
-    <!-- pinyougou-search-interface -->
+    <!-- activemq-client -->
     <dependency>
-      <groupId>com.dt.pyg</groupId>
-      <artifactId>pyg-search-interface</artifactId>
-      <version>${project.version}</version>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-client</artifactId>
     </dependency>
+    <!-- spring-jms -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jms</artifactId>
+    </dependency>
+
 
   </dependencies>
 

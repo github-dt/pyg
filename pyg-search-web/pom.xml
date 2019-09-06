@@ -60,6 +60,24 @@
       <artifactId>pyg-search-interface</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <!-- activemq-client -->
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-client</artifactId>
+    </dependency>
+    <!-- spring-jms -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jms</artifactId>
+    </dependency>
+    <!-- pinyougou-sellergoods-interface -->
+    <dependency>
+      <groupId>com.dt.pyg</groupId>
+      <artifactId>pyg-sellergoods-interface</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies>
 
 

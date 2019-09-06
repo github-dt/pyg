@@ -20,6 +20,9 @@
     <module>pyg-search</module>
       <module>pyg-search-web</module>
       <module>pyg-item-web</module>
+      <module>pyg-sms</module>
+      <module>pyg-user</module>
+      <module>pyg-user-web</module>
   </modules>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>

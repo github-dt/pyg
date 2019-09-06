@@ -37,5 +37,5 @@
     <dubbo:registry protocol="zookeeper" address="192.168.110.128:2181"/>
 
     <!-- 配置采用包扫描来引用服务，产生服务接口的代理对象 -->
-    <dubbo:annotation package="com.dt.pyg.search.controller"/>
+    <dubbo:annotation package="com.dt.pyg.search.controller,com.dt.pyg.search.listener"/>
 </beans>
